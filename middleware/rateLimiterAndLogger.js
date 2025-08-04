@@ -3,7 +3,7 @@ const requestCounts = {};
 const auditLogs = [];
 
 const RATE_LIMIT_PER_MINUTE = 5;
-const TIME_WINDOW_MILLISECONDS = 60 * 1000;
+const TIME_WINDOW = 60 * 1000;
 
 const rateLimiterAndLogger = (req, res, next) => {
     const clientIp = req.ip;
@@ -14,7 +14,7 @@ const rateLimiterAndLogger = (req, res, next) => {
         requestCounts[clientIp] = [];
     }
     requestCounts[clientIp] = requestCounts[clientIp].filter(
-        timestamp => currentTime - timestamp <= TIME_WINDOW_MILLISECONDS
+        timestamp => currentTime - timestamp <= TIME_WINDOW
     );
 
     let outcome;
